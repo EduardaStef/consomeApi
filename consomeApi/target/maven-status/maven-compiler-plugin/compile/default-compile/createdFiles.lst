@@ -1,0 +1,7 @@
+br\com\alura\consomeApi\ConsomeApiApplication.class
+br\com\alura\consomeApi\model\Pokemon.class
+br\com\alura\consomeApi\model\Natureza.class
+br\com\alura\consomeApi\service\ApiService.class
+br\com\alura\consomeApi\service\IApiService.class
+br\com\alura\consomeApi\model\Movimento.class
+br\com\alura\consomeApi\model\Tipo.class
