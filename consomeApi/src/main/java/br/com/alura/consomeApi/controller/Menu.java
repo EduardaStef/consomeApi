@@ -22,9 +22,7 @@ public class Menu {
             logarMenu("Listar movimentos? (true ou false)");
             Boolean listarMovimentos = teclado.nextBoolean();
             if(listarMovimentos) {
-                for (int i = 0; i < pokemon.getMovimentos().size(); i++) {
-                    listarMovimento(pokemon.getMovimentos().get(i).getMovimento());
-                }
+                pokemon.getMovimentos().forEach(movimentoAninhado -> listarMovimento(movimentoAninhado.getMovimento()));
             }
 
             logarMenu("Deseja pesquisar outro pokémon? (true ou false)");
@@ -41,19 +39,13 @@ public class Menu {
     public Pokemon buscaPokemon() {
         String pesquisaPokemon = teclado.next();
         Pokemon pokemon = apiService.converterJson(apiService.chamaApi("https://pokeapi.co/api/v2/pokemon/" + pesquisaPokemon + "/"), Pokemon.class);
-        for (int i = 0; i < pokemon.getMovimentos().size(); i++) {
-            pokemon.getMovimentos().get(i).setMovimento(apiService.converterJson(
-                    apiService.chamaApi("https://pokeapi.co/api/v2/move/" + pokemon.getMovimentos().get(i).getMovimento().getNome() + "/"),
+        pokemon.getMovimentos().forEach(movimentoAninhado -> {
+            movimentoAninhado.setMovimento(apiService.converterJson(
+                    apiService.chamaApi("https://pokeapi.co/api/v2/move/" + movimentoAninhado.getMovimento().getNome() + "/"),
                     Movimento.class));
-        }
-
-        System.out.println("--------------------------------\n" +
-                pokemon.getId() + " - " + pokemon.getNome() + "\n");
-
-        for (int i = 0; i < pokemon.getTipos().size(); i++) {
-            System.out.println((i + 1) + "° tipo: " + pokemon.getTipos().get(i).getTipo().getNome());
-        }
-
+        });
+        System.out.println("--------------------------------\n" + pokemon.getId() + " - " + pokemon.getNome() + "\n\nTipos:");
+        pokemon.getTipos().forEach(tipoAninhado -> System.out.println(tipoAninhado.getTipo().getNome()));
         System.out.println("--------------------------------");
         return pokemon;
     }
@@ -67,7 +59,7 @@ public class Menu {
 
     public void listarMovimento(Movimento movimento) {
         System.out.println("\n-------------------------------------\n" +
-                movimento.getNome() +
+                movimento.getNome() + "\n" +
                 "força: " + movimento.getForca() + "\n" +
                 "precisão: " + movimento.getPrecisao() + "\n" +
                 "tipo: " + movimento.getTipo().getNome() + "\n" +
