@@ -2,6 +2,7 @@ package br.com.alura.consomeApi.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Movimento {
