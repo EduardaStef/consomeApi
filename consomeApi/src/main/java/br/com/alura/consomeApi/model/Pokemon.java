@@ -31,4 +31,8 @@ public class Pokemon {
     public List<TipoAninhado> getTipos() {
         return tipos;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }
