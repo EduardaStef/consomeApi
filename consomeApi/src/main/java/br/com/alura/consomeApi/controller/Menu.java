@@ -5,6 +5,7 @@ import br.com.alura.consomeApi.model.MovimentoAninhado;
 import br.com.alura.consomeApi.model.Pokemon;
 import br.com.alura.consomeApi.service.ApiService;
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -22,7 +23,9 @@ public class Menu {
             logarMenu("Listar movimentos? (true ou false)");
             Boolean listarMovimentos = teclado.nextBoolean();
             if(listarMovimentos) {
-                pokemon.getMovimentos().forEach(movimentoAninhado -> listarMovimento(movimentoAninhado.getMovimento()));
+                pokemon.getMovimentos().stream()
+                        .sorted(Comparator.comparing(movimentoAninhado -> movimentoAninhado.getMovimento().getNome()))
+                        .forEach(movimentoAninhado -> listarMovimento(movimentoAninhado.getMovimento()));
             }
 
             logarMenu("Deseja pesquisar outro pokémon? (true ou false)");
